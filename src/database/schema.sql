@@ -40,5 +40,4 @@ CREATE TABLE subscribe (
         FOREIGN KEY (subscribeId) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT subscriberId_fk
         FOREIGN KEY (subscriberId) REFERENCES user(id) ON DELETE CASCADE
-
 );

@@ -1,20 +1,38 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "iskollection",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "repository": "https://github.com/DavidBenavidez/iskollectionBackend.git",
+  "author": "David Benavidez <Radicalralphhh@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "precommit": "lint-staged",
+     "start": "node ./src/server.js",
+    "build": "mysql -u root -p > ./src/database/schema.sql",
+    "seed": "mysql -u root -p < src/database/schema.sql",
+    "apidoc": "node_modules/apidoc/bin/apidoc -i src/ -o apidoc/"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --tab-width 2 --single-quote --write",
+      "git add"
+    ]
+  },
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "semantic-ui-css": "^2.2.11",
-    "semantic-ui-react": "^0.71.1"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-fileupload": "^0.1.4",
+    "express-mysql-session": "^1.2.1",
+    "express-session": "^1.15.4",
+    "morgan": "^1.8.2",
+    "mysql": "^2.14.0",
+    "rimraf": "^2.6.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.10"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "apidoc": "^0.17.6",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.1",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.5.2"
   }
 }
