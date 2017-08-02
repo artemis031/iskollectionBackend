@@ -1,5 +1,5 @@
 DROP USER IF EXISTS 'iskollection'@'localhost';
-CREATE USER 'iskollection'@'localhost' IDENTIFIED BY 'yses2005';
+CREATE USER 'iskollection'@'localhost' IDENTIFIED BY 'sectumsempra';
 DROP DATABASE IF EXISTS iskollection;
 CREATE DATABASE iskollection;
 GRANT SUPER ON *.* TO 'iskollection'@'localhost';
@@ -19,21 +19,20 @@ CREATE TABLE user (
     firstName VARCHAR(256) NOT NULL,
     lastName VARCHAR(256) NOT NULL,
     email VARCHAR(256) NOT NULL,
-    password VARCHAR(256) NOT NULL,
-
+    password VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE files (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    userId INT NOT NULL AUTO_INCREMENT,    
+    userId INT NOT NULL,    
     filePath VARCHAR(256) NOT NULL,
     CONSTRAINT fileOwner_fk
     	FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE subscribe (
-    subscribeId INT NOT NULL AUTO_INCREMENT,
-    subscriberId INT NOT NULL AUTO_INCREMENT,
+    subscribeId INT NOT NULL,
+    subscriberId INT NOT NULL,
     CONSTRAINT sub
         PRIMARY KEY (subscribeId, subscriberId),
     CONSTRAINT subscribeId_fk
