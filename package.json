@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
-     "start": "set NODE_ENV=development&&node ./src/server.js",
+    "start": "set NODE_ENV=development&&nodemon ./src/server.js",
     "build": "mysql -u root -p > ./src/database/schema.sql",
     "seed": "mysql -u root -p < src/database/schema.sql",
     "apidoc": "node_modules/apidoc/bin/apidoc -i src/ -o apidoc/"

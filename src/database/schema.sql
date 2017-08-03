@@ -40,3 +40,11 @@ CREATE TABLE subscribe (
     CONSTRAINT subscriberId_fk
         FOREIGN KEY (subscriberId) REFERENCES user(id) ON DELETE CASCADE
 );
+
+INSERT INTO user VALUES (
+    DEFAULT,
+    'David',
+    'Bob',
+    'email@gmail.com',
+    SHA2(CONCAT('password', 'maligayangPagong'), 0)
+);

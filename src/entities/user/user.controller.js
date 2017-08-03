@@ -112,10 +112,10 @@ exports.create = (body, fileName) => {
       INSERT INTO
         user(
         	id,
-			firstName,
-			lastName,
-			email,
-			password
+          firstName,
+          lastName,
+          email,
+          password
         )
       VALUES (
       		DEFAULT, ?, ?, ?, ?
