@@ -19,6 +19,7 @@ router.post('/login', async (req, res) => {
     console.log('hahah');
     res.status(data.status).json(data);
   } catch (err) {
+    console.log(err);
     res.status(err.status).json(err);
   }
 });

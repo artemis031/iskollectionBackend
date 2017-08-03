@@ -4,12 +4,14 @@ var logger = require('morgan');
 var fileUpload = require('express-fileupload');
 var http = require('http');
 var router = require('./router');
+var session = require('./session');
 
 var app = express();
 app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(session);
 app.use(logger('dev'));
 app.use('/uploads', express.static(__dirname + '/../uploads'));
 app.use('/api', router);
