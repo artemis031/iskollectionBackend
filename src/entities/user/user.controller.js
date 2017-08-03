@@ -3,6 +3,13 @@ var config = require('../../config');
 
 exports.validateEmail = (email, id) => {
   return new Promise((resolve, reject) => {
+    if (!email.endsWith('@up.edu.ph')) {
+      reject({
+        status: 409,
+        message: 'Email is not a UP account',
+        error: null
+      });
+    }
     let query = `
         SELECT
             COUNT(*)
@@ -107,7 +114,6 @@ exports.getById = id => {
 exports.create = (body, fileName) => {
   return new Promise((resolve, reject) => {
     var { firstName, lastName, email, password } = body;
-
     var query = `
       INSERT INTO
         user(
@@ -118,7 +124,7 @@ exports.create = (body, fileName) => {
           password
         )
       VALUES (
-      		DEFAULT, ?, ?, ?, ?
+      		DEFAULT, ?, ?, ?, SHA2(CONCAT(? , 'maligayangPagong'), 0)
       )
       `;
 
