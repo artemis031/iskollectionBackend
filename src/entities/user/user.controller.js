@@ -88,7 +88,6 @@ exports.getById = id => {
     WHERE
       id = ?
     `;
-
     var values = [id];
 
     db.query(query, values, (err, rows) => {
@@ -151,7 +150,6 @@ exports.create = (body, fileName) => {
 exports.update = (id, body) => {
   return new Promise((resolve, reject) => {
     var { id, firstName, lastName, email, password } = body;
-
     var query = `
       UPDATE
         user
@@ -206,3 +204,61 @@ exports.removeById = id => {
     });
   });
 };
+
+exports.subscribeToRepo = params => {
+  return new Promise((resolve, reject) => {
+    var { userId, repositoryId } = params;
+    const query = `
+      INSERT INTO
+        subscribe(
+          userId,
+          repositoryId
+        )
+      VALUES(
+        ?, ?
+      )
+    `;
+    var values = [userId, repositoryId];
+    db.query(query, values, (err, results) => {
+      if (err) {
+        return reject({
+          status: 500,
+          message: 'Internal server error while subscribing',
+          error: err.sqlMessage
+        });
+      }
+      resolve();
+    });
+  });
+};
+
+// exports.unsubscribetoRepo = id => {
+//   return new Promise((resolve, reject) => {
+//     var { userId, repositoryId } = body;
+//     const query = `
+
+//         subscribe(
+//           userId,
+//           repositoryId
+//         )
+//       VALUES(
+//         ?, ?
+//       )
+
+//     `;
+//     var values = [
+//       userId,
+//       repositoryId
+//     ];
+//     db.query(query, values, (err, results) => {
+//       if (err) {
+//         return reject({
+//           status: 500,
+//           message: 'Internal server error while subscribing',
+//           error: err.sqlMessage
+//         });
+//       }
+//       resolve();
+//     });
+//   });
+// };

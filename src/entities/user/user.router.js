@@ -66,6 +66,24 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/:userId/:repositoryId', async (req, res) => {
+  try {
+    await User.subscribeToRepo(req.params, {
+      userId: 'number',
+      repositoryId: 'number'
+    });
+    const data = {
+      status: 201,
+      message: 'Successfully subscribed.'
+    };
+    res.status(data.status).json(data);
+  } catch (err) {
+    console.log(err);
+    await Util.rollback();
+    res.status(err.status).json(err);
+  }
+});
+
 router.put('/:id', async (req, res) => {
   try {
     await Util.validate(req.params, {

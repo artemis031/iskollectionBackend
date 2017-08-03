@@ -1,8 +1,7 @@
-import { Router } from 'express';
-import * as Petition from './petition.controller';
-import * as Util from '../util.controller';
-
-const router = new Router();
+var express = require('express');
+var router = new express.Router();
+var User = require('./user.controller');
+var Util = require('../util.controller');
 
 router.get('/', async (req, res) => {
   try {

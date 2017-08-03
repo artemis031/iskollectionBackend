@@ -1,4 +1,4 @@
-DROP USER IF EXISTS 'iskollection'@'localhost';
+ DROP USER IF EXISTS 'iskollection'@'localhost';
 CREATE USER 'iskollection'@'localhost' IDENTIFIED BY 'sectumsempra';
 DROP DATABASE IF EXISTS iskollection;
 CREATE DATABASE iskollection;
@@ -40,9 +40,9 @@ CREATE TABLE subscribe (
     CONSTRAINT sub
         PRIMARY KEY (userId, repositoryId),
     CONSTRAINT userId_fk
-        FOREIGN KEY (userId) REFERENCES repository(id) ON DELETE CASCADE,
+        FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT repo_subscribe_fk
-        FOREIGN KEY (repositoryId) REFERENCES user(id) ON DELETE CASCADE
+        FOREIGN KEY (repositoryId) REFERENCES repository(id) ON DELETE CASCADE
 ); 
 
 INSERT INTO user VALUES (
