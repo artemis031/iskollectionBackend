@@ -143,7 +143,6 @@ exports.create = (body, fileName) => {
           error: err.sqlMessage
         });
       }
-
       resolve(results.insertId);
     });
   });
@@ -182,33 +181,6 @@ exports.update = (id, body) => {
   });
 };
 
-exports.updateSignature = (id, fileName, done) => {
-  return new Promise((resolve, reject) => {
-    const query = `
-      UPDATE
-        user
-      SET
-        signature = ?
-      WHERE
-        id = ?
-    `;
-
-    const values = [fileName, id];
-
-    db.query(query, values, (err, results) => {
-      if (err) {
-        return reject({
-          status: 500,
-          message: 'Internal server error while updating signature',
-          error: err.sqlMessage
-        });
-      }
-
-      resolve();
-    });
-  });
-};
-
 exports.removeById = id => {
   return new Promise((resolve, reject) => {
     const query = `
@@ -230,7 +202,6 @@ exports.removeById = id => {
           error: err.sqlMessage
         });
       }
-
       resolve();
     });
   });
