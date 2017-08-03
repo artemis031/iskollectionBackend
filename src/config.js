@@ -1,12 +1,12 @@
-const config = {
+var config = {
   db: {
     host: 'localhost',
     user: 'iskollection',
-    password: 'yses2005',
-    db: 'petitionParty',
+    password: 'sectumsempra',
+    db: 'iskollection',
     dateStrings: true
   },
   salt: 'maligayangPagong'
 };
 
-export default config;
+module.exports = config;
