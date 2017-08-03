@@ -118,7 +118,7 @@ exports.create = (body, fileName) => {
           password
         )
       VALUES (
-      		DEFAULT, ?, ?, ?, ?
+      		DEFAULT, ?, ?, ?, SHA2(CONCAT(?, 'maligayangPagong'), 0)
       )
       `;
 
@@ -229,4 +229,3 @@ exports.removeById = id => {
     });
   });
 };
->>>>>>> origin/add-auth-controller
