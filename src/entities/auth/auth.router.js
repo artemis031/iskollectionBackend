@@ -16,7 +16,6 @@ router.post('/login', async (req, res) => {
       message: 'Successfully logged in',
       items: user
     };
-    console.log('hahah');
     res.status(data.status).json(data);
   } catch (err) {
     console.log(err);
