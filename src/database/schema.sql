@@ -7,13 +7,6 @@ GRANT ALL PRIVILEGES ON iskollection.* TO 'iskollection'@'localhost' WITH GRANT 
 
 USE iskollection;
 
--- CREATE TABLE log (
---     id INT NOT NULL AUTO_INCREMENT,
---     message VARCHAR(256) NOT NULL,
---     dateCreated DATETIME NOT NULL,
---     PRIMARY KEY(id)
--- );
-
 CREATE TABLE user (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(256) NOT NULL,
@@ -22,21 +15,40 @@ CREATE TABLE user (
     password VARCHAR(256) NOT NULL
 );
 
+CREATE TABLE repository(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(256) NOT NULL,
+    courseTitle VARCHAR(256) NOT NULL
+);
+
 CREATE TABLE files (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    userId INT NOT NULL,    
+    subject VARCHAR(256) NOT NULL,
+    fileName VARCHAR(256) NOT NULL,
+    userId INT NOT NULL,
+    repositoryId INT NOT NULL,    
     filePath VARCHAR(256) NOT NULL,
+    CONSTRAINT repositoryId_fk
+        FOREIGN KEY (repositoryId) REFERENCES repository(id) ON DELETE CASCADE,
     CONSTRAINT fileOwner_fk
     	FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE subscribe (
-    subscribeId INT NOT NULL,
-    subscriberId INT NOT NULL,
+    userId INT NOT NULL,
+    repositoryId INT NOT NULL,
     CONSTRAINT sub
-        PRIMARY KEY (subscribeId, subscriberId),
-    CONSTRAINT subscribeId_fk
-        FOREIGN KEY (subscribeId) REFERENCES user(id) ON DELETE CASCADE,
-    CONSTRAINT subscriberId_fk
-        FOREIGN KEY (subscriberId) REFERENCES user(id) ON DELETE CASCADE
+        PRIMARY KEY (userId, repositoryId),
+    CONSTRAINT userId_fk
+        FOREIGN KEY (userId) REFERENCES repository(id) ON DELETE CASCADE,
+    CONSTRAINT repo_subscribe_fk
+        FOREIGN KEY (repositoryId) REFERENCES user(id) ON DELETE CASCADE
+); 
+
+INSERT INTO user VALUES (
+    DEFAULT,
+    'David',
+    'Bob',
+    'email@gmail.com',
+    SHA2(CONCAT('password', 'maligayangPagong'), 0)
 );
