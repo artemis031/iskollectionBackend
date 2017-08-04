@@ -1,25 +1,22 @@
 var db = require('../../database');
+var config = require('../../config');
 
-exports.getAll = () => {
+exports.getFiles = () => {
   return new Promise((resolve, reject) => {
     const query = `
     SELECT
-      id,
-      userID
+      *
     FROM
       files
-    WHERE
-      isApproved = 1
-      AND dateDeleted IS NULL
     `;
 
-    const values = null;
+    var values = null;
 
     db.query(query, values, (err, rows) => {
       if (err) {
         return reject({
           status: 500,
-          message: 'Internal server error while getting all petitions',
+          message: 'Internal server error while getting all users',
           error: err.sqlMessage
         });
       }
@@ -28,71 +25,66 @@ exports.getAll = () => {
   });
 };
 
-exports.getById = id => {
+exports.getFileById = id => {
   return new Promise((resolve, reject) => {
-    const query = `
-      SELECT
-        id,
-        semester,
-        year,
-        title,
-        description,
-        isApproved,
-        dateCreated,
-        dateDeleted
-      FROM
-        petition
-      WHERE
-        id = ? AND isApproved = 1
-      `;
-
-    const values = [id];
+    var query = `
+  SELECT
+      *
+    FROM
+      files
+    WHERE
+      id = ?
+    `;
+    var values = [id];
 
     db.query(query, values, (err, rows) => {
       if (err) {
         return reject({
           status: 500,
-          message: 'Internal server error while getting petition',
+          message: 'Internal server error while getting file',
           error: err.sqlMessage
         });
       }
-
+      if (!rows.length) {
+        return reject({
+          status: 404,
+          message: 'User does not exist',
+          error: null
+        });
+      }
       resolve(rows[0]);
     });
   });
 };
 
-exports.create = body => {
+exports.create = (body, fileName) => {
   return new Promise((resolve, reject) => {
-    const { semester, year, title, description } = body;
-
-    const query = `
+    var { id, subject, fileName, userId, repositoryId, filePath } = body;
+    var query = `
       INSERT INTO
-        petition(
-          semester,
-          year,
-          title,
-          description,
-          isApproved,
-          dateCreated,
-          dateDeleted
+        files(
+          id,
+          subject,
+          fileName,
+          userId,
+          repositoryId,
+          filePath
         )
-        VALUES(
-          ?, ?, ?, ?, 0, NOW(), NULL
-        )
-    `;
+        VALUES (
+          DEFAULT, ?, ?, ?, ?, ?, ?
+      )
+      `;
 
-    const values = [semester, year, title, description];
+    var values = [id, subject, fileName, userId, repositoryId, filePath];
 
     db.query(query, values, (err, results) => {
       if (err) {
         return reject({
           status: 500,
-          message: 'Internal server error while creating petition',
+          message: 'Internal server error while creating user',
           error: err.sqlMessage
         });
       }
-
       resolve(results.insertId);
     });
   });
@@ -100,26 +92,31 @@ exports.create = body => {
 
 exports.update = (id, body) => {
   return new Promise((resolve, reject) => {
-    const query = `
+    var { id, subject, fileName, userId, repositoryId, filePath } = body;
+    var query = `
       UPDATE
-        petition
+        files
       SET
-        ?
+        id = ?,
+        subject = ?,
+        fileName = ?,
+        userId = ?,
+        repositoryId = ?,
+        filePath = ?
       WHERE
         id = ?
     `;
 
-    const values = [body, id];
+    const values = [id, subject, fileName, userId, repositoryId, filePath, id];
 
     db.query(query, values, (err, results) => {
       if (err) {
         return reject({
           status: 500,
-          message: 'Internal server error while updating petition',
+          message: 'Internal server error while updating file',
           error: err.sqlMessage
         });
       }
-
       resolve();
     });
   });
@@ -128,24 +125,24 @@ exports.update = (id, body) => {
 exports.removeById = id => {
   return new Promise((resolve, reject) => {
     const query = `
-        UPDATE
-          petition
-        SET
-          dateDeleted = NOW()
-        WHERE
-          id = ?
-      `;
+      UPDATE
+        files
+      SET
+        dateDeleted = NOW()
+      WHERE 
+        id = ?  
+    `;
+
     const values = [id];
 
-    db.query(query, values, err => {
+    db.query(query, values, (err, results) => {
       if (err) {
         return reject({
           status: 500,
-          message: 'Internal server error while deleting petition',
+          message: 'Internal server error while deleting user',
           error: err.sqlMessage
         });
       }
-
       resolve();
     });
   });
