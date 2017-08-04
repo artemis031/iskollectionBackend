@@ -132,7 +132,6 @@ exports.removeById = id => {
       WHERE 
         id = ?  
     `;
-
     const values = [id];
 
     db.query(query, values, (err, results) => {
