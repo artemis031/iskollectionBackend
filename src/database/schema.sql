@@ -1,4 +1,4 @@
- DROP USER IF EXISTS 'iskollection'@'localhost';
+DROP USER IF EXISTS 'iskollection'@'localhost';
 CREATE USER 'iskollection'@'localhost' IDENTIFIED BY 'sectumsempra';
 DROP DATABASE IF EXISTS iskollection;
 CREATE DATABASE iskollection;
@@ -51,4 +51,131 @@ INSERT INTO user VALUES (
     'Bob',
     'email@gmail.com',
     SHA2(CONCAT('password', 'maligayangPagong'), 0)
+);
+
+INSERT INTO repository VALUES
+(
+    DEFAULT,
+    'CMSC 2',
+    'Introduction to the Internet'
+),
+(
+    DEFAULT,
+    'CMSC 11',
+    'Introduction to Computer Science'
+),
+(
+    DEFAULT,
+    'CMSC 21',
+    'Fundamentals of Programming'
+),
+(
+    DEFAULT,
+    'CMSC 22',
+    'Object-Oriented Programming'
+),
+(
+    DEFAULT,
+    'CMSC 56',
+    'Discrete Mathematical Structures in Computer Science I'
+),
+(
+    DEFAULT,
+    'CMSC 57',
+    'Discrete Mathematical Structures in Computer Science I'
+),
+(
+    DEFAULT,
+    'CMSC 100',
+    'Web Programming'
+),
+(
+    DEFAULT,
+    'CMSC 123',
+    'Data Structures'
+),
+(
+    DEFAULT,
+    'CMSC 124',
+    'Design and Implementation of Programming Languages'
+),
+(
+    DEFAULT,
+    'CMSC 125',
+    'Operating Systems'
+),
+(
+    DEFAULT,
+    'CMSC 127',
+    'File Processing and Database Systems'
+),
+(
+    DEFAULT,
+    'CMSC 128',
+    'Introduction to Software Engineering'
+),
+(
+    DEFAULT,
+    'CMSC 129',
+    'Principles of Compiler Design'
+),
+(
+    DEFAULT,
+    'CMSC 130',
+    'Logic Design and Digital Computer Circuits'
+),
+(
+    DEFAULT,
+    'CMSC 131',
+    'Introduction to Computer Organization and Machine-level Programming'
+),
+(
+    DEFAULT,
+    'CMSC 132',
+    'Computer Architecture'
+),
+(
+    DEFAULT,
+    'CMSC 137',
+    'Data Communications and Networking'
+),
+(
+    DEFAULT,
+    'CMSC 141',
+    'Automata and Language Theory'
+),
+(
+    DEFAULT,
+    'CMSC 142',
+    'Design and Analysis of Algorithms'
+),
+(
+    DEFAULT,
+    'CMSC 150',
+    'Numerical and Symbolic Computation'
+),
+(
+    DEFAULT,
+    'CMSC 161',
+    'Interactive Computer Graphics'
+),
+(
+    DEFAULT,
+    'CMSC 170',
+    'Introduction to Artificial Intelligence'
+),
+(
+    DEFAULT,
+    'CMSC 172',
+    'Robot Modeling'
+),
+(
+    DEFAULT,
+    'CMSC 180',
+    'Introduction to Parallel Computing'
+),
+(
+    DEFAULT,
+    'CMSC 191',
+    'Special Topic'
 );

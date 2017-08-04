@@ -35,6 +35,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:userId/subscriptions', async (req, res) => {
+  try {
+    const subjects = await User.showUserSubscriptions(req.params);
+    const data = {
+      status: 200,
+      message: 'Successfully fetched all user subscriptions',
+      items: subjects
+    };
+    res.status(data.status).json(data);
+  } catch (err) {
+    res.status(err.status).json(err);
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     await Util.validate(req.body, {

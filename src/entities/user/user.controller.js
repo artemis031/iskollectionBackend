@@ -232,6 +232,26 @@ exports.subscribeToRepo = params => {
   });
 };
 
+exports.showUserSubscriptions = params => {
+  return new Promise((resolve, reject) => {
+    var { userId } = params;
+    const query = `
+      SELECT * FROM subscribe where userId = ?
+    `;
+    var values = [userId];
+    db.query(query, values, (err, rows) => {
+      if (err) {
+        return reject({
+          status: 500,
+          message: 'Internal server error while showing subscriptions',
+          error: err.sqlMessage
+        });
+      }
+      resolve(rows);
+    });
+  });
+};
+
 // exports.unsubscribetoRepo = id => {
 //   return new Promise((resolve, reject) => {
 //     var { userId, repositoryId } = body;
